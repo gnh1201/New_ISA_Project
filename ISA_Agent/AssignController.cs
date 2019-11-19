@@ -14,7 +14,7 @@ namespace ISA_Agent
         // Gets all records.
         // This will respond to 
         //     GET http://localhost:8877/assign/get
-        [Route(HttpVerbs.Get, "/get")]
-        public Task<AssignAjaxModel> GetAllPeople() => AssignService.GetDataAsync();
+        [Route(HttpVerbs.Get, "/get/{asNumber}")]
+        public Task<AssignAjaxModel> GetAssigns(string asNumber) => AssignService.GetDataAsync(asNumber);
     }
 }

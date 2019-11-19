@@ -9,11 +9,15 @@ namespace ISA_Agent
 {
     class AssignService
     {
-        internal static async Task<AssignAjaxModel> GetDataAsync()
+        internal static async Task<AssignAjaxModel> GetDataAsync(string asNumber)
         {
             List<AssignModel> assigns = new List<AssignModel>();
             List<DeviceModel> devices = new List<DeviceModel>();
 
+            // get assign information
+
+
+            // get device information
             devices.Add(new DeviceModel
             {
                 IP = DeviceService.GetPrimaryIP(),
