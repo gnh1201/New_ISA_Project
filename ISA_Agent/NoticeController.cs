@@ -13,8 +13,8 @@ namespace ISA_Agent
     {
         // Gets all records.
         // This will respond to 
-        //     GET http://localhost:9696/api/people
+        //     GET http://localhost:9696/notice/get
         [Route(HttpVerbs.Get, "/get")]
-        public Task<IEnumerable<NoticeModel>> GetAllNotice() => NoticeService.GetDataAsync();
+        public Task<NoticeAjaxModel> GetAllNotice() => NoticeService.GetDataAsync();
     }
 }

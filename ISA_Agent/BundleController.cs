@@ -13,8 +13,8 @@ namespace ISA_Agent
     {
         // Gets all records.
         // This will respond to 
-        //     GET http://localhost:9696/api/people
+        //     GET http://localhost:8877/bundle/get
         [Route(HttpVerbs.Get, "/get")]
-        public Task<IEnumerable<BundleModel>> GetAllBundle() => BundleService.GetDataAsync();
+        public Task<BundleAjaxModel> GetAllBundle() => BundleService.GetDataAsync();
     }
 }

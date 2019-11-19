@@ -22,4 +22,10 @@ namespace ISA_Agent
         public string UserPassword { get; set; }
         public int? GroupID { get; set; }
     }
+
+    public class AssignAjaxModel
+    {
+        public IEnumerable<AssignModel> AssignData { get; set; }
+        public IEnumerable<DeviceModel> DeviceData { get; set; }
+    }
 }

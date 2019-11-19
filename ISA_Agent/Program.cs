@@ -42,10 +42,14 @@ namespace ISA_Agent
             {
                 Icon = Resources.AppIcon,
                 ContextMenu = new ContextMenu(new MenuItem[] {
-                new MenuItem("Exit", Exit)
+                    new MenuItem("제어판", OpenWebBrowser),
+                    new MenuItem("종료", Exit)
             }),
                 Visible = true
             };
+
+            // add mouse double click event
+            trayIcon.MouseDoubleClick += new MouseEventHandler(OpenWebBrowser);
 
             // run web server
             RunWebServer();
@@ -57,6 +61,16 @@ namespace ISA_Agent
             trayIcon.Visible = false;
 
             Application.Exit();
+        }
+
+        void OpenWebBrowser(object sender, EventArgs e)
+        {
+            var url = "http://*:8877";
+
+            using (var ctSource = new CancellationTokenSource())
+            {
+                Task.WaitAll(ShowBrowserAsync(url.Replace("*", "localhost"), ctSource.Token));
+            }
         }
 
         private static void RunWebServer()
@@ -111,9 +125,9 @@ namespace ISA_Agent
                     "content-type, accept",
                     // Allowed methods
                     "post")
-                .WithWebApi("/profile", m => m.WithController<AssignController>())
+                .WithWebApi("/assign", m => m.WithController<AssignController>())
                 .WithWebApi("/notice", m => m.WithController<NoticeController>())
-                .WithWebApi("/bundle", m => m.WithController<NoticeController>())
+                .WithWebApi("/bundle", m => m.WithController<BundleController>())
                 .WithStaticFolder("/", HtmlRootPath, true, m => m
                     .WithContentCaching(UseFileCache)) // Add static files after other modules to avoid conflicts
                 .WithModule(new ActionModule("/", HttpVerbs.Any, ctx => ctx.SendDataAsync(new { Message = "Error" })));
