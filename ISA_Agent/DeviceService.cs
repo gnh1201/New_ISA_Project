@@ -1,12 +1,29 @@
-﻿using System.Management;
+﻿using System.Collections.Generic;
+using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace ISA_Agent
 {
     public class DeviceService
     {
+        internal static async Task<DeviceAjaxModel> GetDataAsync()
+        {
+            List<DeviceModel> devices = new List<DeviceModel>();
+
+            // get devices information
+            devices.Add(new DeviceModel {
+                IP = GetPrimaryIP(),
+                MAC = GetPrimaryMAC(),
+                Version = GetOSVersion(),
+                Name = GetComputerName()
+            });
+
+            return new DeviceAjaxModel { Data = devices };
+        }
+
         public static string GetPrimaryIP()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());

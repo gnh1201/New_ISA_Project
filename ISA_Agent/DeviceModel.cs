@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ISA_Agent
 {
@@ -14,5 +15,10 @@ namespace ISA_Agent
         public string Version { get; set; }
         public int? AssignID { get; set; }
         public int? GroupID { get; set; }
+    }
+
+    public class DeviceAjaxModel
+    {
+        public IEnumerable<DeviceModel> Data { get; set; }
     }
 }

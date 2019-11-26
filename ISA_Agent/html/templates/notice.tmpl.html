@@ -1,0 +1,65 @@
+﻿				<div class="main-content-inner">
+					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+						<ul class="breadcrumb">
+							<li>
+								<i class="ace-icon fa fa-home home-icon"></i>
+								<a href="#">홈</a>
+							</li>
+							<li class="active">
+								<a href="#">공지사항</a>
+							</li>
+						</ul><!-- /.breadcrumb -->
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+							<h1>
+								공지사항
+								<small>
+									<i class="ace-icon fa fa-angle-double-right"></i>
+									공지사항을 확인합니다.
+								</small>
+							</h1>
+						</div><!-- /.page-header -->
+
+						<div class="row">
+                            <div class="col-xs-12">
+                                <!-- PAGE CONTENT BEGINS -->
+                                <div class="col-sm-12">
+									{{for Data}}
+									<div class="timeline-container">
+										<div class="timeline-label">
+											<span class="label label-success arrowed-in-right label-lg">
+												<b>{{:CreatedOn}}</b>
+											</span>
+										</div>
+
+										<div class="timeline-items">
+											<div class="timeline-item clearfix">
+												<div class="timeline-info">
+													<i class="timeline-indicator ace-icon fa fa-leaf btn btn-primary no-hover green"></i>
+												</div>
+
+												<div class="widget-box transparent">
+													<div class="widget-header widget-header-small">
+														<h5 class="widget-title smaller">관리자</h5>
+
+														<span class="widget-toolbar no-border">
+															<i class="ace-icon fa fa-clock-o bigger-110"></i>
+															{{:CreatedOn}}
+														</span>
+													</div>
+
+													<div class="widget-body">
+														<div class="widget-main">{{:Content}}</div>
+													</div>
+												</div>
+											</div>
+										</div><!-- /.timeline-items -->
+									</div>
+									{{/for}}
+                                </div>
+                            </div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div>

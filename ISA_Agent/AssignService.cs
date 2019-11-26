@@ -12,25 +12,13 @@ namespace ISA_Agent
         internal static async Task<AssignAjaxModel> GetDataAsync(string asNumber)
         {
             List<AssignModel> assigns = new List<AssignModel>();
-            List<DeviceModel> devices = new List<DeviceModel>();
+
+            
 
             // get assign information
+            // todo
 
-
-            // get device information
-            devices.Add(new DeviceModel
-            {
-                IP = DeviceService.GetPrimaryIP(),
-                MAC = DeviceService.GetPrimaryMAC(),
-                Version = DeviceService.GetOSVersion(),
-                Name = DeviceService.GetComputerName()
-            });
-
-            return new AssignAjaxModel
-            {
-                AssignData = assigns,
-                DeviceData = devices
-            };
+            return new AssignAjaxModel { Data = assigns };
         }
 
         public static string GetAppDataFolder()

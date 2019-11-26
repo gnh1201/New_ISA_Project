@@ -25,7 +25,6 @@ namespace ISA_Agent
 
     public class AssignAjaxModel
     {
-        public IEnumerable<AssignModel> AssignData { get; set; }
-        public IEnumerable<DeviceModel> DeviceData { get; set; }
+        public IEnumerable<AssignModel> Data { get; set; }
     }
 }

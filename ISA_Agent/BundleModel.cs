@@ -27,6 +27,6 @@ namespace ISA_Agent
 
     public class BundleAjaxModel
     {
-        public IEnumerable<BundleModel> aaData { get; set; }
+        public IEnumerable<BundleModel> Data { get; set; }
     }
 }

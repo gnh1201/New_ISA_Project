@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -125,12 +126,26 @@ namespace ISA_Agent
                     "content-type, accept",
                     // Allowed methods
                     "post")
-                .WithWebApi("/assign", m => m.WithController<AssignController>())
-                .WithWebApi("/notice", m => m.WithController<NoticeController>())
-                .WithWebApi("/bundle", m => m.WithController<BundleController>())
+                .WithWebApi("/api", m => m.WithController<MyApiController>())
                 .WithStaticFolder("/", HtmlRootPath, true, m => m
                     .WithContentCaching(UseFileCache)) // Add static files after other modules to avoid conflicts
                 .WithModule(new ActionModule("/", HttpVerbs.Any, ctx => ctx.SendDataAsync(new { Message = "Error" })));
+
+            // use this method to set a callback
+            server.HandleHttpException(async (ctx, ex) => {
+                ctx.Response.StatusCode = ex.StatusCode;
+                switch (ex.StatusCode)
+                {
+                    case 404:
+                        string htmlContents = File.ReadAllText(Path.Combine(HtmlRootPath, "404.html"));
+                        await ctx.SendStringAsync(htmlContents, "text/html", Encoding.UTF8);
+                        break;
+                    default:
+                        // Handle other HTTP Status codes or call the default handler 'SendStandardHtmlAsync'
+                        await ctx.SendStandardHtmlAsync(ex.StatusCode);
+                        break;
+                }
+            });
 
             // Listen for state changes.
             server.StateChanged += (s, e) => $"WebServer New State - {e.NewState}".Info();

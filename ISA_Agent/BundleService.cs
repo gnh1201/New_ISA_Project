@@ -1,13 +1,15 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Management;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ISA_Agent
 {
     public class BundleService
     {
-        internal static async Task<BundleAjaxModel> GetDataAsync()
+        private static List<BundleModel> GetInstalledBundles()
         {
             List<BundleModel> items = new List<BundleModel>();
             List<string> diaplayNameIndex = new List<string>();
@@ -44,7 +46,8 @@ namespace ISA_Agent
                             }
 
                             string installDate = (string)sk.GetValue("InstallDate");
-                            if (string.IsNullOrEmpty(installDate)) {
+                            if (string.IsNullOrEmpty(installDate))
+                            {
                                 installDate = "알 수 없음";
                             }
 
@@ -73,7 +76,39 @@ namespace ISA_Agent
                 }
             }
 
-            return new BundleAjaxModel { aaData = items };
+            return items;
+        }
+
+        private static bool UninstallBundle(string displayName)
+        {
+            bool isFound = false;
+            List<BundleModel> items = GetInstalledBundles();
+
+            foreach(BundleModel item in items)
+            {
+                if (item.DisplayName == displayName)
+                {
+                    string uninstallString = item.UninstallString;
+                    if(!string.IsNullOrEmpty(uninstallString)) {
+                        System.Diagnostics.Process.Start(uninstallString);
+                        isFound = true;
+                    }
+                    break;
+                }
+            }
+
+            return isFound;
+        }
+
+        internal static async Task<BundleAjaxModel> GetDataAsync()
+        {
+            return new BundleAjaxModel { Data = GetInstalledBundles() };
+        }
+
+        internal static async Task<SuccessModel> DoUninstall(string displayName)
+        {
+            bool success = UninstallBundle(displayName);
+            return new SuccessModel { Success = success };
         }
     }
 }
