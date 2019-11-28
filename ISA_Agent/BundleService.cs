@@ -9,7 +9,7 @@ namespace ISA_Agent
 {
     public class BundleService
     {
-        private static List<BundleModel> GetInstalledBundles()
+        public static List<BundleModel> GetInstalledBundles()
         {
             List<BundleModel> items = new List<BundleModel>();
             List<string> diaplayNameIndex = new List<string>();

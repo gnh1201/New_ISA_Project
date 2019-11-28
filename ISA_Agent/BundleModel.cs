@@ -5,9 +5,9 @@ namespace ISA_Agent
 {
     public class BundleModel
     {
-        public int? ID { get; set; }
+        public Int32 ID { get; set; }
         public string Status { get; set; }
-        public int? CreatedBy { get; set; }
+        public Int32 CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public string Origin { get; set; }
         public string ResourceName { get; set; }
@@ -20,9 +20,9 @@ namespace ISA_Agent
         public string DisplayVersion { get; set; }
         public string HelpLink { get; set; }
         public string UninstallString { get; set; }
-        public int? GroupID { get; set; }
-        public int? AssignID { get; set; }
-        public int? DeviceID { get; set; }
+        public Int32 GroupID { get; set; }
+        public Int32 AssignID { get; set; }
+        public Int32 DeviceID { get; set; }
     }
 
     public class BundleAjaxModel

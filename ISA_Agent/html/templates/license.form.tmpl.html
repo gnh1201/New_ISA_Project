@@ -1,0 +1,47 @@
+﻿<div class="main-content-inner">
+	<div class="breadcrumbs ace-save-state" id="breadcrumbs">
+		<ul class="breadcrumb">
+			<li>
+				<i class="ace-icon fa fa-home home-icon"></i>
+				<a href="/">홈</a>
+			</li>
+			<li>
+				<a href="/">라이선스</a>
+			</li>
+			<li class="active">신규 라이센스 등록</li>
+		</ul><!-- /.breadcrumb -->
+	</div>
+
+	<div class="page-content">
+		<div class="page-header">
+			<h1>
+				신규 라이선스 등록
+				<small>
+					<i class="ace-icon fa fa-angle-double-right"></i>
+					신규 라이선스를 등록합니다.
+				</small>
+			</h1>
+		</div><!-- /.page-header -->
+
+		<div class="row">
+			<div class="col-xs-12">
+				<!-- PAGE CONTENT BEGINS -->
+                <button id="btn_upload" class="btn">라이선스 파일 업로드</button>
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.page-content -->
+</div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        jQuery("#btn_upload").click(function() {
+            jQuery.get("/api/license-attach", function(res) {
+                if(res.Success) {
+                    var a = document.createElement("a");
+                    a.href = "/license";
+                    a.click();
+                }
+            }, "json");
+        });
+    });
+</script>

@@ -11,7 +11,16 @@ namespace ISA_Agent
         public Task<SuccessModel> GetMain() => MainService.GetDataAsync();
 
         [Route(HttpVerbs.Post, "/assign")]
-        public Task<AssignAjaxModel> GetAssign(string asNumber) => AssignService.GetDataAsync(asNumber);
+        public Task<SuccessModel> InitAssign() => Task.Run(() =>
+        {
+            return new SuccessModel { Success = true };
+        });
+
+        [Route(HttpVerbs.Get, "/assign")]
+        public Task<AssignAjaxModel> GetAssign() => AssignService.GetDataAsync();
+
+        [Route(HttpVerbs.Get, "/assign/{asNumber}")]
+        public Task<AssignAjaxModel> GetAssignByAsNumber(string asNumber) => AssignService.GetDataAsync(asNumber);
 
         [Route(HttpVerbs.Post, "/bundle")]
         public Task<BundleAjaxModel> GetBundle() => BundleService.GetDataAsync();
@@ -28,7 +37,13 @@ namespace ISA_Agent
         [Route(HttpVerbs.Post, "/license")]
         public Task<LicenseAjaxModel> GetLicense() => LicenseService.GetDataAsync();
 
-        [Route(HttpVerbs.Post, "/license/register")]
-        public Task<DeviceAjaxModel> RegisterLicense() => RegisterLicenseService.GetDataAsync();
+        [Route(HttpVerbs.Post, "/license-form")]
+        public Task<SuccessModel> FormLicense() => Task.Run(() =>
+        {
+            return new SuccessModel { Success = true };
+        });
+
+        [Route(HttpVerbs.Get, "/license-attach")]
+        public Task<SuccessModel> AttachLicense() => LicenseService.AddDataAsync();
     }
 }

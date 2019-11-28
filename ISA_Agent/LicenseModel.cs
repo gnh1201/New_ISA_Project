@@ -5,15 +5,17 @@ namespace ISA_Agent
 {
     public class LicenseModel
     {
-        public int? ID { get; set; }
+        public Int32 ID { get; set; }
         public string Status { get; set; }
-        public int? CreatedBy { get; set; }
+        public Int32 CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
-        public string ProductName { get; set; }
-        public int? RenewPeriod { get; set; }
-        public string Content { get; set; }
+        public string DisplayName { get; set; }
+        public string RenewType { get; set; }
+        public string Publisher { get; set; }
+        public string Memo { get; set; }
+        public DateTime PurchaseDate { get; set; }
         public DateTime ExpireDate { get; set; }
-        public int? FileID { get; set; }
+        public Int32 FileID { get; set; }
     }
 
     public class LicenseAjaxModel

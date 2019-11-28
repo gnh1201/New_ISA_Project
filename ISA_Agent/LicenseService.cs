@@ -1,43 +1,51 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using EmbedIO;
+using HttpMultipartParser;
+using LiteDB;
 
 namespace ISA_Agent
 {
     class LicenseService
     {
-        internal static async Task<DeviceAjaxModel> GetDataAsync()
+        private static LiteDatabase db = new LiteDatabase(@"ISA.db");
+
+        internal static async Task<LicenseAjaxModel> GetDataAsync()
         {
-            using (var db = new LiteDatabase(@"MyData.db"))
+            var licenses = db.GetCollection<LicenseModel>("licenses");
+            var results = licenses.FindAll();
+            return new LicenseAjaxModel { Data = results };
+        }
+
+        private static void AttachFile()
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
-                // Get customer collection
-                var customers = db.GetCollection<Customer>("customers");
+                Title = "라이센스 파일 찾기..."
+            };
 
-                // Create your new customer instance
-                var customer = new Customer
-                {
-                    Name = "John Doe",
-                    Phones = new string[] { "8000-0000", "9000-0000" },
-                    IsActive = true
-                };
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                // openFileDialog1.FileName;
 
-                // Insert new customer document (Id will be auto-incremented)
-                customers.Insert(customer);
-
-                // Update a document inside a collection
-                customer.Name = "Joana Doe";
-
-                customers.Update(customer);
-
-                // Index document using a document property
-                customers.EnsureIndex(x => x.Name);
-
-                // Use Linq to query documents
-                var results = customers.Find(x => x.Name.StartsWith("Jo"));
+                var form = new AddLicenseForm();
+                form.ShowDialog();
+                form.Focus();
             }
         }
 
         internal static async Task<SuccessModel> AddDataAsync()
         {
+            Thread th = new Thread(new ThreadStart(AttachFile));
+            th.SetApartmentState(ApartmentState.STA);
+            th.Start();
+            th.Join();
 
+            return new SuccessModel { Success = true };
         }
     }
 }

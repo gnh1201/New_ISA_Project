@@ -9,7 +9,7 @@
             { "path": "/assign", "tmpl": "assign.tmpl.html" },
             { "path": "/bundle", "tmpl": "bundle.tmpl.html" },
 			{ "path": "/license", "tmpl": "license.tmpl.html" },
-			{ "path": "/license/register", "tmpl": "license.register.tmpl.html" }
+			{ "path": "/license-form", "tmpl": "license.form.tmpl.html" }
         ],
 
         // set default title
